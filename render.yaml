@@ -1,0 +1,30 @@
+# Render Blueprint — lives at repo ROOT (Render only auto-detects it here).
+# `rootDir: backend` makes the build/start commands run inside backend/.
+services:
+  - type: web
+    name: cropwatch-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # Single worker keeps the in-memory cache and AppEEARS polling threads coherent.
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 120
+    healthCheckPath: /health
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      # Secrets — Render prompts for these on deploy (sync:false = not in git).
+      # Leave EARTHDATA_* blank to run in demo mode; fill them for live NASA data.
+      - key: EARTHDATA_USERNAME
+        sync: false
+      - key: EARTHDATA_PASSWORD
+        sync: false
+      # AI field reports — fill at least GROQ for live reports (else template fallback).
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: HF_API_KEY
+        sync: false

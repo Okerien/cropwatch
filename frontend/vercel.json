@@ -4,7 +4,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://cropwatch-backend.onrender.com/:path*" },
+    { "source": "/api/:path*", "destination": "https://cropwatch-vu2e.onrender.com/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

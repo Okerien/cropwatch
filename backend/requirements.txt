@@ -8,5 +8,6 @@ requests==2.32.3
 python-dotenv==1.0.1
 gunicorn==22.0.0
 pyshp==2.3.1        # pure-Python shapefile reader (§3.5)
+rasterio>=1.4,<2    # decode AppEEARS MODIS GeoTIFFs for live NASA data
 # Optional, enabled when present: pyproj (reproject non-WGS84 shapefiles),
 # shapely (repair self-intersecting polygons). Not required to run.

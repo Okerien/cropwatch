@@ -57,6 +57,9 @@ export function ProvenancePanel() {
               <div>
                 <h2>Data provenance & limitations</h2>
                 <p className="prov-sub">Every number in CropWatch comes from free, public scientific infrastructure. Nothing is proprietary or synthesised{source === "demo" ? " — except this demo instance, which serves synthetic-but-plausible data (no NASA credentials configured)." : "."}</p>
+                {source === "appeears" && (
+                  <p className="prov-sub prov-mix">The Snapshot map and its statistics are live NASA MODIS. Historical anomaly, trend, and rainfall layers are currently modelled from the historical record — treat them as indicative, not observed.</p>
+                )}
               </div>
               <button className="prov-close" onClick={() => setOpen(false)} aria-label="Close"><X size={16} /></button>
             </div>

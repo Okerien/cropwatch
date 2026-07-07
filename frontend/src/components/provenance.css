@@ -16,6 +16,7 @@
 .prov-head { display: flex; gap: 16px; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
 .prov-head h2 { font-size: 17px; }
 .prov-sub { font-size: 12px; color: var(--text-dim); margin-top: 5px; line-height: 1.5; max-width: 60ch; }
+.prov-mix { color: var(--sev-moderate); }
 .prov-close { color: var(--text-dim); padding: 4px; border-radius: var(--r-sm); }
 .prov-close:hover { color: var(--text-hi); background: var(--bg-hover); }
 

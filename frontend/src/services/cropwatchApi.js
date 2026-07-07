@@ -39,14 +39,17 @@ export const api = {
     if (first.status === "failed") throw new Error(first.message || "Task failed");
     onProgress?.(first.progress ?? 10, first.message);
     let taskId = first.task_id;
-    for (let i = 0; i < 90; i++) {
+    // Live AppEEARS jobs can run several minutes; poll up to ~6 min. Even if the
+    // browser gives up, the backend keeps going and caches the result, so a
+    // retry returns instantly.
+    for (let i = 0; i < 180; i++) {
       await new Promise((r) => setTimeout(r, 2000));
       const st = await this.ndviStatus(taskId);
       onProgress?.(st.progress ?? 50, st.message);
       if (st.status === "complete") return st.result;
       if (st.status === "failed") throw new Error(st.message || "Task failed");
     }
-    throw new Error("Timed out waiting for satellite data.");
+    throw new Error("Satellite data is taking a while — reload in a minute and it will be ready.");
   },
 
   zones: (geojson) =>

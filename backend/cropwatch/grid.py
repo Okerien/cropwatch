@@ -12,6 +12,7 @@ positions from the geotransform in one pass.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
 
 import numpy as np
 
@@ -23,6 +24,7 @@ class NDVIGrid:
     ndvi: np.ndarray                       # 2D float array, NaN = no-data
     bbox: list[float]                      # [min_lon, min_lat, max_lon, max_lat]
     source: str                            # "demo" | "appeears"
+    composite_date: date | None = None     # actual composite date (live MODIS)
 
     @property
     def rows(self) -> int:

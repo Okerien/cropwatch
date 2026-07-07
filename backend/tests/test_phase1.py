@@ -304,6 +304,39 @@ def test_trend_deterministic_and_cached(client):
     assert b["cached"] is True
 
 
+# --- AppEEARS helpers (live path; network parts not unit-tested) -----------
+def test_appeears_doy_filename_parse():
+    from datetime import date as _date
+
+    from cropwatch.appeears import _doy_date
+    # DOY 161 of 2026 = 10 June 2026 (2026 is not a leap year).
+    assert _doy_date("MOD13Q1.061__250m_16_days_NDVI_doy2026161_aid0001.tif") == _date(2026, 6, 10)
+    assert _doy_date("no-doy-here.tif") is None
+
+
+def test_appeears_widens_window(monkeypatch):
+    from datetime import date as _date
+
+    from cropwatch import appeears
+    captured = {}
+
+    class _Resp:
+        def raise_for_status(self): pass
+        def json(self): return {"task_id": "t123"}
+
+    monkeypatch.setattr(appeears, "_auth_headers", lambda: {})
+    def _fake_post(url, json=None, **kw):
+        captured["dates"] = json["params"]["dates"][0]
+        return _Resp()
+    monkeypatch.setattr(appeears.requests, "post", _fake_post)
+
+    # An 8-day request must be widened to >= LIVE_WINDOW_DAYS so a 16-day
+    # composite is guaranteed to fall inside.
+    appeears.submit_task({}, _date(2026, 6, 20), _date(2026, 6, 27), "MOD13Q1")
+    start = captured["dates"]["startDate"]  # MM-DD-YYYY
+    assert start == "05-26-2026"            # 2026-06-27 minus 32 days
+
+
 # --- Stress-zone polygons ---------------------------------------------------
 def test_zones_geojson(client):
     body = client.post("/zones", json={"geojson": KANO}).get_json()

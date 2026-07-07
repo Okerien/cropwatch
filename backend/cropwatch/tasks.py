@@ -63,13 +63,19 @@ def _to_feature_collection(geojson: dict, polygons: list) -> dict:
 
 def _build_result(grid, area_meta: dict, start: date, end: date, product: str) -> dict:
     payload = grid.to_payload()
+    # Live MODIS reports its true composite date (a 16-day window); demo uses the
+    # requested window as-is.
+    comp_start, comp_end = start, end
+    if getattr(grid, "composite_date", None):
+        comp_start = grid.composite_date
+        comp_end = grid.composite_date + timedelta(days=15)
     return {
         "composite": {
-            "start": start.isoformat(),
-            "end": end.isoformat(),
+            "start": comp_start.isoformat(),
+            "end": comp_end.isoformat(),
             "product": product,
-            "date_label": f"{start.strftime('%d %b')} – {end.strftime('%d %b %Y')}",
-            "age_days": (date.today() - end).days,
+            "date_label": f"{comp_start.strftime('%d %b')} – {comp_end.strftime('%d %b %Y')}",
+            "age_days": (date.today() - comp_end).days,
         },
         "area": {
             "bbox": area_meta["bbox"],

@@ -13,8 +13,9 @@ Phase 1 installable in seconds while leaving the live path ready to switch on.
 from __future__ import annotations
 
 import io
+import re
 import time
-from datetime import date
+from datetime import date, timedelta
 
 import numpy as np
 import requests
@@ -70,15 +71,29 @@ def _fmt(d: date) -> str:
     return d.strftime("%m-%d-%Y")  # AppEEARS expects MM-DD-YYYY
 
 
+def _doy_date(name: str) -> date | None:
+    """Parse the composite date from an AppEEARS filename (…doyYYYYDDD…)."""
+    m = re.search(r"doy(\d{4})(\d{3})", name)
+    if not m:
+        return None
+    return date(int(m.group(1)), 1, 1) + timedelta(days=int(m.group(2)) - 1)
+
+
 def submit_task(area_geojson: dict, start: date, end: date, product: str,
                 task_name: str = "cropwatch") -> str:
-    """Submit an area task and return the AppEEARS task id."""
+    """Submit an area task and return the AppEEARS task id.
+
+    The requested window is widened to at least ``LIVE_WINDOW_DAYS`` so a 16-day
+    MOD13Q1 composite reliably falls inside it; :func:`fetch_grid` then serves
+    the most recent one.
+    """
     prod, layer = PRODUCT_MAP.get(product, PRODUCT_MAP["MOD13Q1"])
+    req_start = min(start, end - timedelta(days=config.LIVE_WINDOW_DAYS))
     payload = {
         "task_type": "area",
         "task_name": task_name,
         "params": {
-            "dates": [{"startDate": _fmt(start), "endDate": _fmt(end)}],
+            "dates": [{"startDate": _fmt(req_start), "endDate": _fmt(end)}],
             "layers": [{"product": prod, "layer": layer}],
             "output": {"format": {"type": "geotiff"}, "projection": "geographic"},
             "geo": area_geojson,
@@ -137,14 +152,14 @@ def fetch_grid(task_id: str) -> NDVIGrid:
         ) from exc
 
     files = _bundle_files(task_id)
-    ndvi_file = next(
-        (f for f in files
-         if f.get("file_name", "").endswith(".tif") and "NDVI" in f.get("file_name", "")),
-        None,
-    )
-    if ndvi_file is None:
+    tifs = [f for f in files
+            if f.get("file_name", "").endswith(".tif") and "NDVI" in f.get("file_name", "")]
+    if not tifs:
         raise UpstreamError("No NDVI raster found in the AppEEARS result bundle.")
-
+    # Most recent composite first (the widened window may return several).
+    tifs.sort(key=lambda f: _doy_date(f["file_name"]) or date(1970, 1, 1), reverse=True)
+    ndvi_file = tifs[0]
+    composite_date = _doy_date(ndvi_file["file_name"])
     file_id = ndvi_file["file_id"]
     try:
         resp = requests.get(f"{config.APPEEARS_BASE}/bundle/{task_id}/{file_id}",
@@ -162,4 +177,5 @@ def fetch_grid(task_id: str) -> NDVIGrid:
     raw[(raw < lo) | (raw > hi)] = np.nan
     ndvi = raw * config.MODIS_SCALE
     ndvi[ndvi < config.NDVI_NODATA_BELOW] = np.nan
-    return NDVIGrid(ndvi=ndvi, bbox=bbox, source="appeears")
+    return NDVIGrid(ndvi=ndvi, bbox=bbox, source="appeears",
+                    composite_date=composite_date)

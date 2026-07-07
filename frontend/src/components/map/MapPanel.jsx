@@ -113,7 +113,10 @@ export function MapPanel({ basemap = "dark" }) {
 
       <Legend mode={view} cvd={palette === "cvd"} />
       <DrawToolbar />
-      {mode === "snapshot" && !anomaly && <TimeSlider onFrame={onFrame} />}
+      {/* Live MODIS composites take minutes each to fetch, so the pre-fetching
+          time-lapse slider only makes sense against the fast synthetic engine. */}
+      {mode === "snapshot" && !anomaly && result?.source !== "appeears" &&
+        <TimeSlider onFrame={onFrame} />}
       {snapshot.status === "loading" && <LoadingVeil snapshot={snapshot} />}
       {anomaly && historical.status === "loading" && (
         <LoadingVeil snapshot={{ message: "Computing 20-year baseline…", progress: 60 }} />

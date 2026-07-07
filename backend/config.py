@@ -28,6 +28,9 @@ class Config:
     EARTHDATA_USERNAME = os.getenv("EARTHDATA_USERNAME", "")
     EARTHDATA_PASSWORD = os.getenv("EARTHDATA_PASSWORD", "")
     APPEEARS_BASE = os.getenv("APPEEARS_BASE", "https://appeears.earthdatacloud.nasa.gov/api")
+    # MOD13Q1 is a 16-day product; request a wider window so at least one
+    # composite lands inside it, then serve the most recent.
+    LIVE_WINDOW_DAYS = int(os.getenv("LIVE_WINDOW_DAYS", 32))
 
     # If no NASA credentials are configured, the backend automatically serves
     # scientifically-plausible synthetic data so the whole app is runnable and
@@ -46,9 +49,13 @@ class Config:
     # --- API keys / rate limiting -----------------------------------------
     API_KEY_DB = os.getenv("API_KEY_DB", os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "data", "keys.sqlite"))
+    # NDVI cap protects against abuse of the shared endpoint. AppEEARS itself is
+    # unlimited with an Earthdata account, so a private deployment can raise this
+    # via NDVI_RATE_LIMIT (e.g. 120) so the time slider runs freely in live mode.
+    _NDVI_LIMIT = int(os.getenv("NDVI_RATE_LIMIT", 10))
     RATE_LIMITS = {              # (max_requests, window_seconds)
-        "ndvi_anon": (10, 3600),
-        "ndvi_key": (100, 3600),
+        "ndvi_anon": (_NDVI_LIMIT, 3600),
+        "ndvi_key": (max(100, _NDVI_LIMIT * 10), 3600),
         "default_anon": (60, 3600),
         "default_key": (1000, 3600),
     }

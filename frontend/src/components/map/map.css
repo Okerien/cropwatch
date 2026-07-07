@@ -1,0 +1,130 @@
+.map-wrap { position: absolute; inset: 0; }
+.leaflet-root { width: 100%; height: 100%; background: var(--bg-void); }
+
+/* Pixel-crisp NDVI raster — no bilinear smear at high zoom */
+.ndvi-overlay { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+/* Leaflet chrome recoloured for the dark control-room theme */
+.leaflet-control-attribution {
+  background: rgba(10, 14, 20, 0.7) !important;
+  color: var(--text-faint) !important;
+  font-size: 10px !important;
+  backdrop-filter: blur(6px);
+}
+.leaflet-control-attribution a { color: var(--text-dim) !important; }
+
+/* --- Legend ------------------------------------------------------------- */
+.legend {
+  position: absolute; left: 16px; bottom: 22px; z-index: var(--z-overlay);
+  padding: 10px 12px; width: 190px;
+}
+.legend-title { margin-bottom: 7px; }
+.legend-bar { height: 10px; border-radius: var(--r-pill); border: 1px solid var(--line-strong); }
+.legend-ticks { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-dim); margin-top: 5px; }
+.legend-caption { font-size: 10.5px; color: var(--text-faint); margin-top: 4px; }
+
+/* --- Loading veil ------------------------------------------------------- */
+.map-veil {
+  position: absolute; inset: 0; z-index: var(--z-overlay);
+  display: grid; place-items: center;
+  background: rgba(7, 10, 15, 0.55); backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+.map-veil-card { padding: 20px 24px; width: 300px; text-align: center; pointer-events: auto; }
+.veil-spinner {
+  width: 30px; height: 30px; margin: 0 auto 14px;
+  border: 2px solid var(--line-strong); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .veil-spinner { animation: none; } }
+.veil-msg { font-size: 13px; color: var(--text); margin-bottom: 12px; }
+.veil-bar { height: 4px; background: var(--bg-input); border-radius: var(--r-pill); overflow: hidden; }
+.veil-bar span { display: block; height: 100%; background: var(--accent); border-radius: var(--r-pill); transition: width 0.4s var(--ease); }
+
+/* --- Inspect popup ------------------------------------------------------ */
+.cw-popup .leaflet-popup-content-wrapper {
+  background: var(--bg-elevated); color: var(--text);
+  border: 1px solid var(--line-strong); border-radius: var(--r-md);
+  box-shadow: var(--shadow-pop);
+}
+.cw-popup .leaflet-popup-tip { background: var(--bg-elevated); border: 1px solid var(--line-strong); }
+.cw-popup .leaflet-popup-content { margin: 12px 14px; }
+.cw-popup a.leaflet-popup-close-button { color: var(--text-faint); }
+.inspect-ndvi { display: flex; align-items: center; gap: 8px; }
+.inspect-swatch { width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--line-strong); }
+.inspect-val { font-size: 22px; font-weight: 500; color: var(--text-hi); }
+.inspect-zone { font-size: 12px; font-weight: 600; margin: 2px 0 8px; }
+.inspect-meta { display: flex; flex-direction: column; gap: 3px; }
+.inspect-meta > div { display: flex; justify-content: space-between; gap: 16px; }
+.inspect-meta dt { color: var(--text-faint); font-size: 11px; }
+.inspect-meta dd { color: var(--text); font-size: 11.5px; }
+
+/* --- Draw toolbar --------------------------------------------------------- */
+.draw-toolbar {
+  position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: var(--z-overlay);
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+}
+.draw-count { font-size: 11px; color: var(--text-faint); min-width: 42px; }
+.dtb {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 12px; border-radius: var(--r-pill); font-size: 12px;
+  background: var(--bg-input); border: 1px solid var(--line); color: var(--text-dim);
+}
+.dtb:hover:not(:disabled) { color: var(--text-hi); }
+.dtb:disabled { opacity: 0.4; }
+.dtb-ok { background: var(--accent); color: #04181a; border-color: transparent; font-weight: 600; }
+.dtb-ok:hover:not(:disabled) { background: var(--accent-hi); color: #04181a; }
+.dtb-x:hover { color: var(--sev-severe); }
+
+/* --- Time slider ---------------------------------------------------------- */
+.timeslider {
+  position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+  z-index: var(--z-overlay);
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; width: min(520px, calc(100vw - 260px));
+}
+@media (max-width: 820px) { .timeslider { width: calc(100vw - 32px); bottom: 12px; } }
+
+.ts-play {
+  width: 32px; height: 32px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 50%; background: var(--accent); color: #04181a;
+  transition: background var(--dur), opacity var(--dur);
+}
+.ts-play:hover { background: var(--accent-hi); }
+.ts-play:disabled { opacity: 0.4; cursor: wait; }
+
+.ts-body { flex: 1; min-width: 0; }
+.ts-date { font-size: 11.5px; color: var(--text-hi); margin-bottom: 5px; }
+
+.ts-range { width: 100%; appearance: none; height: 4px; border-radius: var(--r-pill); background: var(--bg-input); outline-offset: 4px; }
+.ts-range::-webkit-slider-thumb {
+  appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg-panel);
+  cursor: grab; box-shadow: 0 0 0 1px var(--accent-dim);
+}
+.ts-range::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--bg-panel); cursor: grab;
+}
+
+.ts-progress { display: flex; gap: 2px; margin-top: 5px; }
+.ts-tick { flex: 1; height: 3px; border-radius: 2px; background: var(--bg-input); transition: background var(--dur); }
+.ts-tick.ok { background: var(--accent-dim); }
+.ts-tick.cur { background: var(--accent); }
+
+.ts-speed {
+  flex-shrink: 0; padding: 4px 9px; font-size: 11px;
+  border-radius: var(--r-pill); border: 1px solid var(--line);
+  background: var(--bg-input); color: var(--text-dim);
+}
+.ts-speed:hover { color: var(--text-hi); }
+
+/* Leaflet zoom control restyle (when shown) */
+.leaflet-bar a {
+  background: var(--bg-elevated) !important; color: var(--text-hi) !important;
+  border-color: var(--line) !important;
+}
+.leaflet-bar a:hover { background: var(--bg-hover) !important; }

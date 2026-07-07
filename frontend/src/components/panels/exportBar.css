@@ -1,0 +1,10 @@
+.export-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 12px; }
+.export-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 7px 4px; font-size: 11.5px; font-weight: 500;
+  background: var(--bg-input); border: 1px solid var(--line);
+  border-radius: var(--r-sm); color: var(--text-dim);
+  transition: color var(--dur), border-color var(--dur);
+}
+.export-btn:hover:not(:disabled) { color: var(--text-hi); border-color: var(--line-strong); }
+.export-btn:disabled { opacity: 0.5; cursor: wait; }

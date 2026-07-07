@@ -1,0 +1,42 @@
+{
+  "mode": { "snapshot": "Picha", "trend": "Mwenendo", "historical": "Historia" },
+  "view": { "absolute": "Halisi", "anomaly": "Tofauti" },
+  "area": {
+    "title": "Eneo la kuvutia",
+    "search": "Tafuta", "draw": "Chora", "coords": "Kuratibu", "upload": "Pakia",
+    "searchPlaceholder": "Tafuta mahali au eneo la kilimo…",
+    "rectangle": "Mstatili", "polygon": "Poligoni",
+    "useArea": "Tumia eneo hili",
+    "pointRadius": "Nukta + eneo", "boundingBox": "Kisanduku",
+    "dropFile": "Dondosha faili ya GeoJSON au Shapefile, au bofya kuchagua"
+  },
+  "summary": {
+    "meanNdvi": "Wastani wa NDVI", "median": "Wastani", "std": "Mkengeuko",
+    "severity": "ukali wa msongo · 0–100",
+    "pickRegion": "Tafuta au chagua eneo ili kuanza."
+  },
+  "zones": {
+    "severe": "Kali", "moderate": "Wastani", "mild": "Kidogo",
+    "healthy": "Nzuri", "dense_healthy": "Nene"
+  },
+  "severity": {
+    "0": "Msongo mkubwa", "1": "Msongo mkubwa kiasi", "2": "Msongo wa wastani",
+    "3": "Msongo kidogo", "4": "Hali nzuri", "5": "Hali bora"
+  },
+  "watchlist": {
+    "title": "Orodha ya ufuatiliaji",
+    "save": "Hifadhi {{name}}",
+    "empty": "Maeneo yaliyohifadhiwa yataonekana hapa yenye viashiria vya hali."
+  },
+  "trend": {
+    "title": "Mwenendo wa NDVI", "rainfall": "Mvua dhidi ya wastani",
+    "anomaly": "Mwenendo wa tofauti (z-score)"
+  },
+  "report": {
+    "title": "Ripoti ya shambani", "generate": "Tengeneza", "regenerate": "Tengeneza upya",
+    "writing": "Inaandika…"
+  },
+  "export": { "png": "PNG", "pdf": "PDF", "csv": "CSV", "geojson": "GeoJSON" },
+  "alert": { "investigate": "Chunguza" },
+  "provenance": { "title": "Chanzo na mipaka ya data" }
+}

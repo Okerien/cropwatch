@@ -1,0 +1,29 @@
+.report { padding: 14px; margin-top: 12px; }
+.report-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+
+.report-controls { display: flex; gap: 6px; }
+.report-controls select {
+  flex: 1; min-width: 0; padding: 6px 8px; font-size: 12px;
+  background: var(--bg-input); border: 1px solid var(--line);
+  border-radius: var(--r-sm); color: var(--text-hi);
+}
+.report-gen { padding: 6px 12px; font-size: 12px; white-space: nowrap; }
+.report-gen:disabled { opacity: 0.5; cursor: default; }
+
+.report-err { margin-top: 8px; font-size: 11.5px; color: var(--sev-severe); }
+
+.report-text {
+  margin-top: 12px; padding: 10px 12px;
+  border-left: 2px solid var(--sev-mild);
+  background: var(--bg-input); border-radius: 0 var(--r-md) var(--r-md) 0;
+}
+.report-text p { font-size: 12px; line-height: 1.65; color: var(--text); }
+.report-text p + p { margin-top: 8px; }
+
+.report-edit {
+  margin-top: 12px; width: 100%; padding: 10px 12px; font-size: 12px; line-height: 1.6;
+  background: var(--bg-input); border: 1px solid var(--accent-dim);
+  border-radius: var(--r-md); color: var(--text-hi); resize: vertical;
+}
+
+.report-note { margin-top: 8px; font-size: 10.5px; color: var(--text-faint); font-family: var(--font-mono); }

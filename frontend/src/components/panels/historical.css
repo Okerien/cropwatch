@@ -1,0 +1,28 @@
+.hist { padding: 16px; }
+.hist-err { color: var(--text); font-size: 13px; }
+
+.hist-head { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-dim); margin-bottom: 12px; }
+
+.hist-z { display: flex; gap: 14px; align-items: flex-start; padding: 12px; background: var(--bg-input); border: 1px solid var(--line); border-radius: var(--r-md); margin-bottom: 14px; }
+.hist-z-num { font-size: 34px; font-weight: 500; color: var(--sev-significant); line-height: 1.1; }
+.hist-interp { font-size: 12px; color: var(--text); line-height: 1.55; }
+
+.hist-dist-bar { display: flex; height: 10px; border-radius: var(--r-pill); overflow: hidden; border: 1px solid var(--line); background: var(--bg-input); }
+.hist-dist-bar span { display: block; height: 100%; }
+.hist-dist-cap { display: flex; justify-content: space-between; font-size: 9.5px; color: var(--text-faint); margin: 5px 2px 14px; font-family: var(--font-mono); }
+
+.ana-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ana-table th {
+  text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-faint); font-weight: 500; padding: 0 6px 6px 0; font-family: var(--font-mono);
+}
+.ana-table td { padding: 6px 6px 6px 0; border-top: 1px solid var(--line-faint); vertical-align: middle; }
+.ana-year { color: var(--text-hi); font-weight: 500; font-size: 13px; }
+.match-chip { padding: 2px 8px; border-radius: var(--r-pill); font-size: 10px; font-weight: 600; }
+.match-chip.high { background: rgba(76, 175, 80, 0.14); color: var(--sev-good); }
+.match-chip.medium { background: rgba(245, 200, 66, 0.12); color: var(--sev-moderate); }
+.match-chip.low { background: var(--bg-elevated); color: var(--text-dim); }
+.spark { display: block; opacity: 0.9; }
+.spark-none { color: var(--text-faint); }
+
+.hist-crop { margin-top: 10px; font-size: 10.5px; color: var(--text-faint); font-family: var(--font-mono); }

@@ -1,0 +1,42 @@
+{
+  "mode": { "snapshot": "Snapshot", "trend": "Trend", "historical": "Historical" },
+  "view": { "absolute": "Absolute", "anomaly": "Anomaly" },
+  "area": {
+    "title": "Area of interest",
+    "search": "Search", "draw": "Draw", "coords": "Coords", "upload": "Upload",
+    "searchPlaceholder": "Search a place or farming zone…",
+    "rectangle": "Rectangle", "polygon": "Polygon",
+    "useArea": "Use this area",
+    "pointRadius": "Point + radius", "boundingBox": "Bounding box",
+    "dropFile": "Drop a GeoJSON or zipped Shapefile, or click to browse"
+  },
+  "summary": {
+    "meanNdvi": "Mean NDVI", "median": "Median", "std": "Std dev",
+    "severity": "crop-stress severity · 0–100",
+    "pickRegion": "Search or pick a region to begin."
+  },
+  "zones": {
+    "severe": "Severe", "moderate": "Moderate", "mild": "Mild",
+    "healthy": "Healthy", "dense_healthy": "Dense"
+  },
+  "severity": {
+    "0": "Severe stress", "1": "Significant stress", "2": "Moderate stress",
+    "3": "Mild stress", "4": "Good conditions", "5": "Excellent conditions"
+  },
+  "watchlist": {
+    "title": "Watchlist",
+    "save": "Save {{name}}",
+    "empty": "Saved regions appear here with live status dots."
+  },
+  "trend": {
+    "title": "NDVI trend", "rainfall": "Rainfall vs long-term average",
+    "anomaly": "Anomaly trend (z-score)"
+  },
+  "report": {
+    "title": "Field report", "generate": "Generate", "regenerate": "Regenerate",
+    "writing": "Writing…"
+  },
+  "export": { "png": "PNG", "pdf": "PDF", "csv": "CSV", "geojson": "GeoJSON" },
+  "alert": { "investigate": "Investigate" },
+  "provenance": { "title": "Data provenance & limitations" }
+}

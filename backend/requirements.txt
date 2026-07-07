@@ -1,0 +1,12 @@
+# CropWatch backend — Phase 1 core
+# Kept intentionally lean; heavy geospatial deps (rasterio/scipy/shapely)
+# are added in later phases so Phase 1 stays fast to install and run.
+Flask==3.0.3
+Flask-Cors==4.0.1
+numpy>=2.3.2  # 2.3.2+ ships prebuilt wheels for Python 3.14
+requests==2.32.3
+python-dotenv==1.0.1
+gunicorn==22.0.0
+pyshp==2.3.1        # pure-Python shapefile reader (§3.5)
+# Optional, enabled when present: pyproj (reproject non-WGS84 shapefiles),
+# shapely (repair self-intersecting polygons). Not required to run.

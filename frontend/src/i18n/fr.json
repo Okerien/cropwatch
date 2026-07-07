@@ -1,0 +1,42 @@
+{
+  "mode": { "snapshot": "Instantané", "trend": "Tendance", "historical": "Historique" },
+  "view": { "absolute": "Absolu", "anomaly": "Anomalie" },
+  "area": {
+    "title": "Zone d'intérêt",
+    "search": "Rechercher", "draw": "Dessiner", "coords": "Coord.", "upload": "Importer",
+    "searchPlaceholder": "Rechercher un lieu ou une zone agricole…",
+    "rectangle": "Rectangle", "polygon": "Polygone",
+    "useArea": "Utiliser cette zone",
+    "pointRadius": "Point + rayon", "boundingBox": "Cadre englobant",
+    "dropFile": "Déposez un GeoJSON ou un Shapefile compressé, ou cliquez pour parcourir"
+  },
+  "summary": {
+    "meanNdvi": "NDVI moyen", "median": "Médiane", "std": "Écart-type",
+    "severity": "sévérité du stress · 0–100",
+    "pickRegion": "Recherchez ou choisissez une région pour commencer."
+  },
+  "zones": {
+    "severe": "Sévère", "moderate": "Modéré", "mild": "Léger",
+    "healthy": "Sain", "dense_healthy": "Dense"
+  },
+  "severity": {
+    "0": "Stress sévère", "1": "Stress important", "2": "Stress modéré",
+    "3": "Stress léger", "4": "Bonnes conditions", "5": "Conditions excellentes"
+  },
+  "watchlist": {
+    "title": "Liste de suivi",
+    "save": "Enregistrer {{name}}",
+    "empty": "Les régions enregistrées apparaissent ici avec un indicateur d'état."
+  },
+  "trend": {
+    "title": "Tendance NDVI", "rainfall": "Pluie vs moyenne à long terme",
+    "anomaly": "Tendance d'anomalie (score z)"
+  },
+  "report": {
+    "title": "Rapport de terrain", "generate": "Générer", "regenerate": "Régénérer",
+    "writing": "Rédaction…"
+  },
+  "export": { "png": "PNG", "pdf": "PDF", "csv": "CSV", "geojson": "GeoJSON" },
+  "alert": { "investigate": "Examiner" },
+  "provenance": { "title": "Provenance et limites des données" }
+}

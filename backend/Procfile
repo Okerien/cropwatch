@@ -1,0 +1,3 @@
+# Single worker on purpose: the cache and AppEEARS polling threads are in-process,
+# so all requests must share one worker. Concurrency comes from threads.
+web: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 120

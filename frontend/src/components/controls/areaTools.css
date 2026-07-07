@@ -1,0 +1,40 @@
+.atabs { display: flex; gap: 2px; padding: 2px; background: var(--bg-input); border: 1px solid var(--line); border-radius: var(--r-pill); margin-bottom: 10px; }
+.atab {
+  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  padding: 5px 4px; border-radius: var(--r-pill);
+  font-size: 11px; color: var(--text-dim);
+}
+.atab.on { background: var(--bg-elevated); color: var(--accent); }
+
+.ahint { font-size: 11px; color: var(--text-faint); margin-top: 8px; line-height: 1.5; }
+.aerr { font-size: 11.5px; color: var(--sev-severe); margin-top: 8px; }
+.awarn { font-size: 11px; color: var(--sev-moderate); margin-top: 6px; }
+.ago { margin-top: 10px; width: 100%; justify-content: center; font-size: 12.5px; }
+
+.draw-tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.draw-tools .btn { font-size: 12px; padding: 6px 14px; }
+
+.coord-sub { display: flex; gap: 2px; padding: 2px; background: var(--bg-input); border: 1px solid var(--line); border-radius: var(--r-pill); margin-bottom: 8px; }
+.coord-sub button { flex: 1; padding: 4px; font-size: 11px; border-radius: var(--r-pill); color: var(--text-dim); }
+.coord-sub button.on { background: var(--bg-elevated); color: var(--text-hi); }
+
+.coord-grid { display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 6px; }
+.coord-grid.four { grid-template-columns: 1fr 1fr; }
+.coord-grid input {
+  min-width: 0; padding: 7px 9px; font-size: 12px;
+  background: var(--bg-input); border: 1px solid var(--line);
+  border-radius: var(--r-sm); color: var(--text-hi);
+}
+.coord-grid input::placeholder { color: var(--text-faint); }
+.coord-loc { width: 32px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--bg-input); color: var(--text-dim); }
+.coord-loc:hover { color: var(--accent); }
+
+.upload-drop {
+  width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 20px 12px; font-size: 11.5px; text-align: center;
+  border: 1.5px dashed var(--line-strong); border-radius: var(--r-md);
+  background: var(--bg-input); color: var(--text-dim);
+  transition: border-color var(--dur), color var(--dur);
+}
+.upload-drop:hover:not(:disabled) { border-color: var(--accent-dim); color: var(--text-hi); }
+.upload-drop:disabled { opacity: 0.6; cursor: wait; }
